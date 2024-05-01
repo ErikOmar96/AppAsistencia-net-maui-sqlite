@@ -10,20 +10,12 @@ namespace AppAsistencia
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
+            builder.UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-
-            // Agregar
-            builder.Services.AddDbContext<AsistenciaDBContext>();
-            // Inyectar páginas que van usar las base de datos
-            builder.Services.AddTransient<LoginPage>();
-            builder.Services.AddTransient<RegistroPage>();
-
 
             // Crear contexto
             var dbContext = new AsistenciaDBContext();
@@ -31,6 +23,13 @@ namespace AppAsistencia
             dbContext.Database.EnsureCreated();
             // Liberar la DB una vez creada
             dbContext.Dispose();
+            // Agregar
+            builder.Services.AddDbContext<AsistenciaDBContext>();
+            // Inyectar páginas que van usar las base de datos
+            builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<RegistroPage>();
+
+            
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
