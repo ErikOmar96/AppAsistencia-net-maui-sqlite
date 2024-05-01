@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppAsistencia.Vistas.LoginPage"
+             Title="LoginPage"
+             BackgroundColor="#bc08fc">
+    <ContentPage.Content>
+        <Grid VerticalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Frame Grid.Row="0"
+                   CornerRadius="10"
+                   Margin="25"
+                   BackgroundColor="#bc08fc">
+                <StackLayout VerticalOptions="Center"
+                             HorizontalOptions="Center">
+                    <Image Source="logo_epiko.png"
+                           Aspect="AspectFit"/>
+                    <Label Text="Bienvenido a EPIKO"
+                           TextColor="White"
+                           VerticalOptions="CenterAndExpand" 
+                           HorizontalOptions="CenterAndExpand"
+                           FontAttributes="Bold"
+                           FontSize="25"
+                           HorizontalTextAlignment="Center"
+                           FontFamily="Arial"/>
+                    <Entry Placeholder="Ingresa tu usuario"
+                           BackgroundColor="White"
+                           TextColor="Black"/>
+                    <Entry Placeholder="Ingresa tu clave"
+                           IsPassword="True"
+                           BackgroundColor="White"
+                           TextColor="Black"/>
+                    <Button Text="Iniciar Sesión"
+                            TextColor="Black"
+                            BackgroundColor="White"
+                            x:Name="btnIngresar"
+                            Clicked="btnIngresar_Clicked"
+                            Margin="15"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="CenterAndExpand"/>
+                    <Button Text="Registrarse"
+                            TextColor="Black"
+                            BackgroundColor="White"
+                            x:Name="btnRegistrar"
+                            Clicked="btnRegistrar_Clicked"
+                            Margin="15"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

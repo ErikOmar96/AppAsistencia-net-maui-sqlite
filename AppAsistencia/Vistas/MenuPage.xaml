@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppAsistencia.Vistas.MenuPage"
+             Title="MenuPage"
+             BackgroundColor="#bc08fc">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid RowDefinitions="auto, auto, auto, auto, auto, auto"
+                  ColumnDefinitions="*, *">
+                <!--<Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>-->
+                <Frame Grid.Row="0"
+                       Grid.Column="0"
+                       CornerRadius="10"
+                       BackgroundColor="#bc08fc"
+                       Margin="10">
+                    <StackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center">
+                        <ImageButton Source="asistencia"
+                                     HeightRequest="150"
+                                     Aspect="Fill"
+                                     x:Name="btnMarcarAsistencia"                                
+                                     Clicked="btnMarcarAsistencia_Clicked"
+                                     BackgroundColor="#bc08fc"/>
+                        <Label Text="Marcar Asistencia"
+                               TextColor="White"
+                               FontSize="20"
+                               FontFamily="Arial"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Grid.Row="0"
+                       Grid.Column="1"
+                       CornerRadius="10"
+                       BackgroundColor="#bc08fc"
+                       Margin="10">
+                    <StackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center">
+                        <ImageButton Source="tardanza"
+                                     HeightRequest="150"
+                                     Aspect="Fill"
+                                     x:Name="btnJustificarTardanza"
+                                     Clicked="btnJustificarTardanza_Clicked"
+                                     BackgroundColor="#bc08fc"/>
+                        <Label Text="Justificar Tardanza"
+                               TextColor="White"
+                               FontSize="20"
+                               FontFamily="Arial"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Grid.Row="1"
+                       Grid.Column="0"
+                       CornerRadius="10"
+                       BackgroundColor="#bc08fc"
+                       Margin="10">
+                    <StackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center">
+                        <ImageButton Source="inasistencia"
+                                     HeightRequest="150"
+                                     Aspect="Fill"
+                                     x:Name="btnJustificarInasistencia"
+                                     Clicked="btnJustificarInasistencia_Clicked"
+                                     BackgroundColor="#bc08fc"/>
+                        <Label Text="Justificar Inasistencia"
+                               TextColor="White"
+                               FontSize="20"
+                               FontFamily="Arial"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Grid.Row="1"
+                       Grid.Column="1"
+                       CornerRadius="10"
+                       BackgroundColor="#bc08fc"
+                       Margin="10">
+                    <StackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center">
+                        <ImageButton Source="ver_asistencia"
+                                     HeightRequest="150"
+                                     Aspect="Fill"
+                                     x:Name="btnVerAsistencias"
+                                     Clicked="btnVerAsistencias_Clicked"
+                                     BackgroundColor="#bc08fc"/>
+                        <Label Text="Ver Asistencias"
+                               TextColor="White"
+                               FontSize="20"
+                               FontFamily="Arial"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Grid.Row="2"
+                       Grid.Column="0"
+                       CornerRadius="10"
+                       BackgroundColor="#bc08fc"
+                       Margin="10">
+                    <StackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center">
+                        <ImageButton Source="actualizar_datos"
+                                     HeightRequest="150"
+                                     Aspect="Fill"
+                                     x:Name="btnActualizarDatos"
+                                     Clicked="btnActualizarDatos_Clicked"
+                                     BackgroundColor="#bc08fc"/>
+                        <Label Text="Actualizar Datos"
+                               TextColor="White"
+                               FontSize="20"
+                               FontFamily="Arial"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Grid.Row="2"
+                       Grid.Column="1"
+                       CornerRadius="10"
+                       BackgroundColor="#bc08fc"
+                       Margin="10">
+                    <StackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center">
+                        <ImageButton Source="salir"
+                                     HeightRequest="150"
+                                     Aspect="Fill"
+                                     x:Name="btnSalir"
+                                     Clicked="btnSalir_Clicked"
+                                     BackgroundColor="#bc08fc"/>
+                        <Label Text="Salir"
+                               TextColor="White"
+                               FontSize="20"
+                               FontFamily="Arial"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
