@@ -1,5 +1,6 @@
 using AppAsistencia.DataAccess;
-
+using AppAsistencia.VistaModelos;
+using AppAsistencia.Modelos;
 namespace AppAsistencia.Vistas;
 
 public partial class RegistroPage : ContentPage
@@ -10,20 +11,34 @@ public partial class RegistroPage : ContentPage
 	public RegistroPage(AsistenciaDBContext dBContext)
 	{
         _dbContext = dBContext;
-        InitializeComponent();
-		
-		//_dbContext.Usuarios.Add(new Modelos.Usuario)
+        InitializeComponent();				
 	}
 
-    private void btnRegistrar_Clicked(object sender, EventArgs e)
+    private async void btnRegistrar_Clicked(object sender, EventArgs e)
     {
-        string nombre = txtNombre.Text;
-        string clave = txtClave.Text;
-		registrarUsuario(nombre, clave);
+        try
+        {
+
+            var usuariovm = new UsuarioVM(_dbContext);
+
+            usuariovm.registrar(new Usuario
+            {
+                IdUsuario = 0,
+                NombreUsuario = txtNombre.Text,
+                ClaveUsuario = txtClave.Text,
+                CorreoUsuario = txtCorreo.Text
+            });
+
+            //MainThread.BeginInvokeOnMainThread(async () =>
+            //{
+            await DisplayAlert("Alerta", "Usuario Registrado "+usuariovm.id.ToString(), "Aceptar");
+            await Navigation.PopAsync();
+            //});
+        }
+        catch(Exception ex)
+        {
+            await DisplayAlert("Alerta", ex.Message, "Aceptar");
+        }
     }
 
-    private void registrarUsuario(string nombreUsuario, string claveUsuario)
-    {
-        
-    }
 }
