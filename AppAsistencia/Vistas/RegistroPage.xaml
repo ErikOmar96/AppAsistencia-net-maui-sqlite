@@ -4,12 +4,6 @@
              x:Class="AppAsistencia.Vistas.RegistroPage"
              Title="RegistroPage"
              BackgroundColor="#bc08fc">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
     <ContentPage.Content>
         <Grid VerticalOptions="CenterAndExpand">
             <Grid.RowDefinitions>
