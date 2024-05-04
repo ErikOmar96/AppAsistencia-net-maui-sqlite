@@ -27,7 +27,8 @@
                            FontFamily="Arial"/>
                     <Entry Placeholder="Ingresa tu usuario"
                            BackgroundColor="White"
-                           TextColor="Black" x:Name="txtUsuario" />
+                           TextColor="Black" 
+                           x:Name="txtUsuario"/>
                     <Entry Placeholder="Ingresa tu clave"
                            x:Name="txtClave"
                            IsPassword="True"

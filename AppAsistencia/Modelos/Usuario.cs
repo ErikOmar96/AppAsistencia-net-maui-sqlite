@@ -4,7 +4,7 @@ namespace AppAsistencia.Modelos
 {
     public class Usuario
     {
-        // Establecer IdUsuario como primey key
+        // Establecer IdUsuario como primary key
         [Key]
         public int IdUsuario { get; set; }
         public string NombreUsuario { get; set; }

@@ -2,6 +2,8 @@
 // Agregar contexto de base de datos y Vistas
 using AppAsistencia.DataAccess;
 using AppAsistencia.Vistas;
+using Plugin.Fingerprint.Abstractions;
+using Plugin.Fingerprint;
 
 namespace AppAsistencia
 {
@@ -17,7 +19,7 @@ namespace AppAsistencia
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            // Crear contexto
+            // Crear instancia de DBContext
             var dbContext = new AsistenciaDBContext();
             // Validar si se creo la DB
             dbContext.Database.EnsureCreated();
@@ -28,6 +30,7 @@ namespace AppAsistencia
             // Inyectar páginas que van usar las base de datos
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<RegistroPage>();
+            // Agregar singleton de AsistenciaPage        
 
             
 #if DEBUG

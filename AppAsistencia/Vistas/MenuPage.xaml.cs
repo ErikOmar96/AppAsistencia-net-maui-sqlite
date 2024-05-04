@@ -2,14 +2,16 @@ namespace AppAsistencia.Vistas;
 
 public partial class MenuPage : ContentPage
 {
-	public MenuPage()
+    
+    public MenuPage()
 	{
 		InitializeComponent();
+        
 	}
 
-    private void btnMarcarAsistencia_Clicked(object sender, EventArgs e)
+    private async void btnMarcarAsistencia_Clicked(object sender, EventArgs e)
     {
-
+        await Navigation.PushAsync(new AsistenciaPage());
     }
 
     private void btnJustificarTardanza_Clicked(object sender, EventArgs e)
