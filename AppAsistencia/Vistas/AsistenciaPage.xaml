@@ -25,7 +25,7 @@
                     <Image Source="huella"
                        Aspect="AspectFit"
                        HorizontalOptions="Center"/>
-                    <Button Text="Marcar Asistencia"
+                    <Button Text="Marcar Asistencia Biométrica"
                         TextColor="Black"
                         x:Name="btnMarcarAsistencia"
                         Clicked="btnMarcarAsistencia_Clicked"

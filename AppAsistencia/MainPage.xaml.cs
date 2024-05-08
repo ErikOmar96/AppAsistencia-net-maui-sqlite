@@ -1,10 +1,11 @@
 ﻿using AppAsistencia.Vistas;
+using Plugin.Fingerprint.Abstractions;
 
 namespace AppAsistencia
 {
     public partial class MainPage : ContentPage
     {
-
+        
         public MainPage()
         {
             InitializeComponent();

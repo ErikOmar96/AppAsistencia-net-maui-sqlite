@@ -2,6 +2,7 @@
 // Agregar contexto de base de datos y Vistas
 using AppAsistencia.DataAccess;
 using AppAsistencia.Vistas;
+// Using de fingerprint
 using Plugin.Fingerprint.Abstractions;
 using Plugin.Fingerprint;
 
@@ -31,11 +32,15 @@ namespace AppAsistencia
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<RegistroPage>();
             // Agregar singleton de AsistenciaPage        
-
+            builder.Services.AddSingleton<AsistenciaPage>();
+            builder.Services.AddTransient<MenuPage>();
             
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+            // Agregar esta linea
+            builder.Services.AddSingleton(typeof(IFingerprint), CrossFingerprint.Current);
             return builder.Build();
         }
     }

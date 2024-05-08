@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppAsistencia.Vistas.TardanzaPage"
+             Title="TardanzaPage"
+             BackgroundColor="#bc08fc">
+    <ContentPage.Content>
+        <Grid VerticalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Frame Grid.Row="0"
+                   CornerRadius="10"
+                   Margin="25"
+                   BackgroundColor="#bc08fc">
+                <StackLayout VerticalOptions="Center"
+                             HorizontalOptions="Center">
+                    <Label Text="Pulse el lector de huella"
+                           TextColor="White"
+                           VerticalOptions="CenterAndExpand" 
+                           HorizontalOptions="CenterAndExpand"
+                           FontAttributes="Bold"
+                           FontSize="25"
+                           HorizontalTextAlignment="Center"/>
+                    <Image Source="huella"
+                           Aspect="AspectFit"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Ingrese su motivo"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalTextAlignment="Center"
+                           FontSize="20"
+                           />
+                    <Entry Placeholder="Ingrese su motivo"
+                           MaxLength="150"
+                           TextColor="Black"
+                           BackgroundColor="White"
+                           x:Name="txtTardanza"/>
+                    <Button Text="Justificar Tardanza"
+                            Margin="15"
+                            TextColor="Black"
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="CenterAndExpand"                           
+                            x:Name="btnJustificarTardanza"
+                            Clicked="btnJustificarTardanza_Clicked"/>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
