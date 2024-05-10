@@ -3,8 +3,8 @@
 using AppAsistencia.DataAccess;
 using AppAsistencia.Vistas;
 // Using de fingerprint
-using Plugin.Fingerprint.Abstractions;
-using Plugin.Fingerprint;
+//using Plugin.Fingerprint.Abstractions;
+//using Plugin.Fingerprint;
 
 namespace AppAsistencia
 {
@@ -40,7 +40,7 @@ namespace AppAsistencia
             builder.Logging.AddDebug();
 #endif
             // Agregar esta linea
-            builder.Services.AddSingleton(typeof(IFingerprint), CrossFingerprint.Current);
+            //builder.Services.AddSingleton(typeof(IFingerprint), CrossFingerprint.Current);
             return builder.Build();
         }
     }

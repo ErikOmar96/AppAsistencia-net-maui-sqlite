@@ -1,4 +1,4 @@
-using Plugin.Fingerprint.Abstractions;
+//using Plugin.Fingerprint.Abstractions;
 
 namespace AppAsistencia.Vistas;
 

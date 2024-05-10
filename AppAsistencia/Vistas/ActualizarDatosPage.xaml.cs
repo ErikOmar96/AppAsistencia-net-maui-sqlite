@@ -6,4 +6,9 @@ public partial class ActualizarDatosPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private void btnActualizarDatos_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }

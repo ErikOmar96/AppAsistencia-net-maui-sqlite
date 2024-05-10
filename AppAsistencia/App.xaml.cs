@@ -1,11 +1,11 @@
 ﻿using AppAsistencia.Vistas;
-using Plugin.Fingerprint.Abstractions;
+//using Plugin.Fingerprint.Abstractions;
 
 namespace AppAsistencia
 {
     public partial class App : Application
     {
-        public App(IFingerprint fingerprint)
+        public App()
         {
             InitializeComponent();
             //MainPage = new AppShell();

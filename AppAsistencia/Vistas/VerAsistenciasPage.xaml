@@ -2,11 +2,56 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppAsistencia.Vistas.VerAsistenciasPage"
-             Title="VerAsistenciasPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="VerAsistenciasPage"
+             BackgroundColor="#bc08fc">
+    <ContentPage.Content>
+        <ScrollView Margin="15">
+            <StackLayout BackgroundColor="#bc08fc">
+                <Label Text="Ver Mis Asistencias"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       FontAttributes="Bold"
+                       FontSize="25"
+                       Margin="10"/>
+                <!--<Entry Placeholder="Busque Aquí"
+                       BackgroundColor="White"
+                       TextColor="Black"
+                       Margin="10"/>-->
+                <Label Text="Seleccione la fecha"
+                       TextColor="White"
+                       HorizontalTextAlignment="Center"
+                       FontSize="20"
+                       FontAttributes="Bold"/>
+                <DatePicker x:Name="dtpFechaAsistencia"
+                            Format="dd/MM/yyyy"
+                            />
+                <Button Text="Buscar"
+                        TextColor="Black"
+                        BackgroundColor="White"
+                        Margin="10"/>
+                <Label Text="Descargue su reporte de asistencias"
+                       TextColor="White"
+                       HorizontalTextAlignment="Center"
+                       FontAttributes="Bold"
+                       FontSize="20"
+                       Margin="10"/>
+                <Button Text="Descargar PDF"
+                        TextColor="White"
+                        BackgroundColor="Red"
+                        Margin="10"
+                        CornerRadius="10"/>
+                <Button Text="Descargar Excel"
+                        TextColor="White"
+                        BackgroundColor="Green"
+                        Margin="10"
+                        CornerRadius="10"/>
+                <Button Text="Imprimir"
+                        TextColor="White"
+                        BackgroundColor="Blue"
+                        Margin="10"
+                        CornerRadius="10"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
 </ContentPage>

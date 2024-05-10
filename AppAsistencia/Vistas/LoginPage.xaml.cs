@@ -1,7 +1,7 @@
 // Llamar a DataAcces y VistaModelos
 using AppAsistencia.DataAccess;
 using AppAsistencia.VistaModelos;
-using Plugin.Fingerprint.Abstractions;
+//using Plugin.Fingerprint.Abstractions;
 
 namespace AppAsistencia.Vistas;
 
