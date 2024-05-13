@@ -2,6 +2,7 @@
 // Agregar contexto de base de datos y Vistas
 using AppAsistencia.DataAccess;
 using AppAsistencia.Vistas;
+using CommunityToolkit.Maui;
 // Using de fingerprint
 //using Plugin.Fingerprint.Abstractions;
 //using Plugin.Fingerprint;
@@ -14,6 +15,7 @@ namespace AppAsistencia
         {
             var builder = MauiApp.CreateBuilder();
             builder.UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

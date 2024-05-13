@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppAsistencia.Vistas.AsistenciaPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="AsistenciaPage"
              BackgroundColor="#bc08fc">
     <ContentPage.Content>
@@ -22,17 +23,34 @@
                        FontAttributes="Bold"
                        FontSize="25"
                        HorizontalTextAlignment="Center"/>
-                    <Image Source="huella"
+                    <!--<Image Source="huella"
                        Aspect="AspectFit"
-                       HorizontalOptions="Center"/>
+                       HorizontalOptions="Center"
+                       x:Name="imgAsistencia">
+                        <Image.Behaviors>
+                            <toolkit:TouchBehavior LongPressCommand="{Binding LongPressCommand}" LongPressDuration="3000"/>
+                        </Image.Behaviors>
+                    </Image>-->
+
+                    <ImageButton Source="huella"
+                                 Aspect="AspectFit"
+                                 HeightRequest="200"
+                                 HorizontalOptions="Center"
+                                 x:Name="imgAsistencia"
+                                 Pressed="imgAsistencia_Pressed"
+                                 Released="imgAsistencia_Released">
+                        <ImageButton.Behaviors>
+                            <toolkit:TouchBehavior LongPressCommand="{Binding LongPressCommand}" LongPressDuration="3000"/>
+                        </ImageButton.Behaviors>
+                    </ImageButton>
                     <Button Text="Marcar Asistencia Biométrica"
                         TextColor="Black"
-                        x:Name="btnMarcarAsistencia"
-                        Clicked="btnMarcarAsistencia_Clicked"
+                        x:Name="btnMarcarAsistencia"       
                         Margin="15"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="CenterAndExpand"
-                        BackgroundColor="White"/>
+                        BackgroundColor="White"
+                        />
                 </StackLayout>
             </Frame>
         </Grid>
