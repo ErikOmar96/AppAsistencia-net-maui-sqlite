@@ -24,7 +24,8 @@ public partial class LoginPage : ContentPage
         if (resultado != null)
         {
             await DisplayAlert("AVISO", $"Bienvenido {txtUsuario.Text}", "OK");
-            await Navigation.PushAsync(new MenuPage());
+            // Cambiar la MainPage a MenuPage
+            Application.Current.MainPage = new NavigationPage(new MenuPage());
         }
         else
         {

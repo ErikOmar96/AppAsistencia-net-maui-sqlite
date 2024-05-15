@@ -46,7 +46,9 @@ public partial class MenuPage : ContentPage
         if (confirmacion)
         {
             // El usuario confirmó salir de la aplicación, así que cierra la aplicación
-            Application.Current.Quit();
+            //Application.Current.Quit();
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
+            await Navigation.PushAsync(new LoginPage());
         }
     }
 

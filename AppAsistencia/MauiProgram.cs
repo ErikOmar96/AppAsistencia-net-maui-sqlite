@@ -36,7 +36,11 @@ namespace AppAsistencia
             // Agregar singleton de AsistenciaPage        
             builder.Services.AddSingleton<AsistenciaPage>();
             builder.Services.AddTransient<MenuPage>();
-            
+            builder.Services.AddSingleton<TardanzaPage>();
+            builder.Services.AddSingleton<InasistenciaPage>();
+            builder.Services.AddSingleton<VerAsistenciasPage>();
+            builder.Services.AddSingleton<ActualizarDatosPage>();
+
 
 #if DEBUG
             builder.Logging.AddDebug();

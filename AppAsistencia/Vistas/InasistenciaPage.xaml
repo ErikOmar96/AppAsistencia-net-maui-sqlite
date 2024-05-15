@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppAsistencia.Vistas.InasistenciaPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="InasistenciaPage"
              BackgroundColor="#bc08fc">
     <ContentPage.Content>
@@ -22,9 +23,20 @@
                            FontAttributes="Bold"
                            FontSize="25"
                            HorizontalTextAlignment="Center"/>
-                    <Image Source="huella"
+                    <!--<Image Source="huella"
                            Aspect="AspectFit"
-                           HorizontalOptions="Center"/>
+                           HorizontalOptions="Center"/>-->
+                    <ImageButton Source="huella"
+                                 Aspect="AspectFit"
+                                 HeightRequest="200"
+                                 HorizontalOptions="Center"
+                                 x:Name="imgInasistencia"
+                                 Pressed="imgInasistencia_Pressed"
+                                 Released="imgInasistencia_Released">
+                        <ImageButton.Behaviors>
+                            <toolkit:TouchBehavior LongPressCommand="{Binding LongPressCommand}" LongPressDuration="3000"/>
+                        </ImageButton.Behaviors>
+                    </ImageButton>
                     <Label Text="Ingrese su motivo"
                            FontAttributes="Bold"
                            TextColor="White"
