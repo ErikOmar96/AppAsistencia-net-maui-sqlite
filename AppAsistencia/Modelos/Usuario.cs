@@ -10,5 +10,6 @@ namespace AppAsistencia.Modelos
         public string NombreUsuario { get; set; }
         public string ClaveUsuario { get; set; }
         public string CorreoUsuario { get; set; }
+        public virtual ICollection<Asistencia> Asistencias { get; set; } = new List<Asistencia>();
     }
 }

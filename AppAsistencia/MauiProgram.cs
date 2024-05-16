@@ -3,6 +3,7 @@
 using AppAsistencia.DataAccess;
 using AppAsistencia.Vistas;
 using CommunityToolkit.Maui;
+using AppAsistencia.VistaModelos;
 // Using de fingerprint
 //using Plugin.Fingerprint.Abstractions;
 //using Plugin.Fingerprint;
@@ -34,12 +35,13 @@ namespace AppAsistencia
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<RegistroPage>();
             // Agregar singleton de AsistenciaPage        
-            builder.Services.AddSingleton<AsistenciaPage>();
+            builder.Services.AddTransient<AsistenciaPage>();
+            builder.Services.AddTransient<AsistenciaVM>();
             builder.Services.AddTransient<MenuPage>();
-            builder.Services.AddSingleton<TardanzaPage>();
-            builder.Services.AddSingleton<InasistenciaPage>();
-            builder.Services.AddSingleton<VerAsistenciasPage>();
-            builder.Services.AddSingleton<ActualizarDatosPage>();
+            builder.Services.AddTransient<TardanzaPage>();
+            builder.Services.AddTransient<InasistenciaPage>();
+            builder.Services.AddTransient<VerAsistenciasPage>();
+            builder.Services.AddTransient<ActualizarDatosPage>();
 
 
 #if DEBUG
