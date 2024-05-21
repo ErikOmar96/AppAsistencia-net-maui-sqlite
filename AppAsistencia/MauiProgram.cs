@@ -31,10 +31,9 @@ namespace AppAsistencia
             dbContext.Dispose();
             // Agregar
             builder.Services.AddDbContext<AsistenciaDBContext>();
-            // Inyectar páginas que van usar las base de datos
+            // Inyectar páginas que se van usar en la base de datos
             builder.Services.AddTransient<LoginPage>();
-            builder.Services.AddTransient<RegistroPage>();
-            // Agregar singleton de AsistenciaPage        
+            builder.Services.AddTransient<RegistroPage>();       
             builder.Services.AddTransient<AsistenciaPage>();
             builder.Services.AddTransient<AsistenciaVM>();
             builder.Services.AddTransient<MenuPage>();

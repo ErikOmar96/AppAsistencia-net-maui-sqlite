@@ -3,8 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppAsistencia.Vistas.AsistenciaPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:AppAsistencia.VistaModelos"
              Title="AsistenciaPage"
              BackgroundColor="#bc08fc">
+    <!-- Establecer enlace de la clase con la interfaz -->
+    <ContentPage.BindingContext>
+        <viewmodel:AsistenciaVM/>
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
         <Grid VerticalOptions="CenterAndExpand">
             <Grid.RowDefinitions>

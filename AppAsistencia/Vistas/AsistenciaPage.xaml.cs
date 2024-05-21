@@ -9,6 +9,8 @@ public partial class AsistenciaPage : ContentPage
     //private readonly TimeSpan longPressDuration = TimeSpan.FromSeconds(5);
     public Command LongPressCommand { get; set; }
     private bool pulsacionLarga;
+    // Obtener la fecha y hora actual
+    private DateTime FechaHoraActual = DateTime.Now;
 
     public AsistenciaPage()
     {
@@ -27,7 +29,7 @@ public partial class AsistenciaPage : ContentPage
 
     public async void DetectarLongPress()
     {
-        //// Esperar 3 segundos para una pulsación larga
+        //// Esperar 3 segundos para una pulsaciï¿½n larga
         await Task.Delay(3000);
         if (pulsacionLarga)
         {
@@ -35,20 +37,20 @@ public partial class AsistenciaPage : ContentPage
             {
                 DisplayAlert("AVISO", "Asistencia marcada correctamente", "OK");
                 btnMarcarAsistencia.IsEnabled = true;
+                
             });
-            BindingContext = this;
-            
+            BindingContext = this;           
         }
         else
         {
-            await DisplayAlert("Pulsación Corta", "La pulsación ha sido corta", "Aceptar");
+            await DisplayAlert("Pulsaciï¿½n Corta", "La pulsaciï¿½n ha sido corta", "Aceptar");
             return;
         }
     }
 
     private void imgAsistencia_Released(object sender, EventArgs e)
     {
-        // Si se libera antes de 5 segundos, no se considera pulsación larga
+        // Si se libera antes de 5 segundos, no se considera pulsaciï¿½n larga
         pulsacionLarga = false;
         //DetectarLongPress();      
     }

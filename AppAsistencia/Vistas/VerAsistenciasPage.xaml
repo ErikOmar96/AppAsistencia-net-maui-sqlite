@@ -30,6 +30,13 @@
                         TextColor="Black"
                         BackgroundColor="White"
                         Margin="10"/>
+                <ListView x:Name="lvAsistencia">
+                     <ListView.ItemTemplate>
+                            <DataTemplate>
+                                   <TextCell Text="{Binding }">
+                            </DataTemplate>
+                     </ListView.ItemTemplate>
+                </ListView>
                 <Label Text="Descargue su reporte de asistencias"
                        TextColor="White"
                        HorizontalTextAlignment="Center"

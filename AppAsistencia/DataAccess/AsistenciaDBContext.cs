@@ -9,7 +9,7 @@ namespace AppAsistencia.DataAccess
     // Heredar de DbContext
     public class AsistenciaDBContext : DbContext
     {
-        // Crear tabla
+        // Crear tablas para la DB
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Asistencia> Asistencias { get; set; }
 
@@ -25,8 +25,8 @@ namespace AppAsistencia.DataAccess
         {
             modelBuilder.Entity<Usuario>(entity =>
             {
-                entity.HasKey(u => u.IdUsuario);
-                entity.Property(u => u.IdUsuario).IsRequired().ValueGeneratedOnAdd();        
+                entity.HasKey(u => u.IdUsuario); // Primary Key
+                entity.Property(u => u.IdUsuario).IsRequired().ValueGeneratedOnAdd(); // Requerido y valor autogenerado
             });
 
             // Aquí modelar las demás tablas
