@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SQLite;
 
 namespace AppAsistencia.Modelos
 {
     public class Usuario
     {
         // Establecer IdUsuario como primary key
-        [Key]
+        [PrimaryKey, AutoIncrement]
         public int IdUsuario { get; set; }
         public string NombreUsuario { get; set; }
         public string ClaveUsuario { get; set; }

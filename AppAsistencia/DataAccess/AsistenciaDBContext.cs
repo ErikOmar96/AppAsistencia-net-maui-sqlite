@@ -1,33 +1,106 @@
 ﻿// Agregar Modelos, Utilidades y  Microsoft.EF
 using AppAsistencia.Modelos;
-using AppAsistencia.Utilidades;
-using Microsoft.EntityFrameworkCore;
+using SQLite;
+using System.Linq.Expressions;
+//using Microsoft.EntityFrameworkCore;
 
 namespace AppAsistencia.DataAccess
 {
-    // Heredar de DbContext
-    public class AsistenciaDBContext : DbContext
+    public class AsistenciaDBContext : IAsyncDisposable
     {
-        // Crear tabla
-        public DbSet<Usuario> Usuarios { get; set; }
+        // Constante para nombre de base de datos
+        private const string DbName = "AsistenciaDB.db3";
+        // Ruta para guardar el archivo de la base de datos
+        private static string DbPath => Path.Combine(FileSystem.AppDataDirectory, DbName);
+        // Propiedades
+        private SQLiteAsyncConnection _connection;
+        private SQLiteAsyncConnection Database => 
+            (_connection ??= new SQLiteAsyncConnection(DbPath, 
+                SQLiteOpenFlags.Create | SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.SharedCache));
 
-        // Sobreescribir método
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // Métodos Auxiliares
+        private async Task CreateTableIfNotExists<TTable>() where TTable : class, new()
         {
-            string conexionDB = $"Filename={ConexionDB.DevolverRuta("asistencia.db")}";
-            optionsBuilder.UseSqlite(conexionDB);
+            await Database.CreateTableAsync<TTable>();
         }
 
-        // Modelar tablas
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        private async Task<AsyncTableQuery<TTable>> GetTableAsync<TTable>() where TTable : class, new()
         {
-            modelBuilder.Entity<Usuario>(entity =>
+            await CreateTableIfNotExists<TTable>();
+            return Database.Table<TTable>();
+        }
+
+        public async Task<IEnumerable<TTable>> GetAllAsync<TTable>() where TTable : class, new()
+        {
+            var table = await GetTableAsync<TTable>();
+            return await table.ToListAsync();
+        }
+
+        // Métodos Públicos para Operaciones CRUD
+        public async Task<IEnumerable<TTable>> GetFilteredAsync<TTable>(Expression<Func<TTable, bool>> predicate) where TTable : class, new()
+        {
+            var table = await GetTableAsync<TTable>();
+            return await table.Where(predicate).ToListAsync();
+        }
+
+        private async Task<TResult> Execute<TTable, TResult>(Func<Task<TResult>> action) where TTable : class, new()
+        {         
+            await CreateTableIfNotExists<TTable>();
+            return await action();
+        }
+
+        public async Task<TTable> GetItemByKeyAsync<TTable>(object primaryKey) where TTable : class, new()
+        {
+            return await Execute<TTable, TTable>(async () => await Database.GetAsync<TTable>(primaryKey));
+        }
+
+        // Add
+        public async Task<bool> AddItemAsync<TTable>(TTable item) where TTable : class, new()
+        {
+            return await Execute<TTable, bool>(async () => await Database.InsertAsync(item) > 0);
+        }
+
+        // Update
+        public async Task<bool> UpdateItemAsync<TTable>(TTable item) where TTable : class, new()
+        {
+            await CreateTableIfNotExists<TTable>();
+            return await Database.UpdateAsync(item) > 0;
+        }
+
+        // Delete
+        public async Task<bool> DeleteItemAsync<TTable>(TTable item) where TTable : class, new()
+        {
+            await CreateTableIfNotExists<TTable>();
+            return await Database.DeleteAsync(item) > 0;
+        }
+
+        public async Task<bool> DeleteItemByKeyAsync<TTable>(object primaryKey) where TTable : class, new()
+        {
+            await CreateTableIfNotExists<TTable>();
+            return await Database.DeleteAsync<TTable>(primaryKey) > 0;
+        }
+
+        // Métodos para manejar la relación Usuario - Asistencia
+        public async Task<IEnumerable<Asistencia>> GetAsistenciasByUsuarioIdAsync(int usuarioId)
+        {
+            return await GetFilteredAsync<Asistencia>(a => a.IdUsuario == usuarioId);
+        }
+
+        public async Task<bool> AddUsuarioWithAsistenciasAsync(Usuario usuario, List<Asistencia> asistencias)
+        {
+            bool usuarioAdded = await AddItemAsync(usuario);
+            if (usuarioAdded)
             {
-                entity.HasKey(col => col.IdUsuario);
-                entity.Property(col => col.IdUsuario).IsRequired().ValueGeneratedOnAdd();
-            });
-
-            // Aquí modelar las demás tablas
+                foreach (var asistencia in asistencias)
+                {
+                    asistencia.IdUsuario = usuario.IdUsuario;
+                    await AddItemAsync(asistencia);
+                }
+            }
+            return usuarioAdded;
         }
+
+        public async ValueTask DisposeAsync() => await _connection?.CloseAsync();
+
     }
 }

@@ -17,19 +17,21 @@ public partial class LoginPage : ContentPage
 	}
 
     private async void btnIngresar_Clicked(object sender, EventArgs e)
-    {
-        // Variable para guardar objeto de UsuarioVM
-        var usuario = new UsuarioVM(_dbContext);
-        var resultado= usuario.autenticar(txtUsuario.Text, txtClave.Text);
-        if (resultado != null)
+    {   // Crear una instancia de UsuarioVM con el contexto de base de datos
+        var usuarioVM = new UsuarioVM(_dbContext);
+
+        // Autenticar usuario
+        var usuarioAutenticado = await usuarioVM.AutenticarAsync(txtUsuario.Text, txtClave.Text);
+
+        if (usuarioAutenticado != null)
         {
             await DisplayAlert("AVISO", $"Bienvenido {txtUsuario.Text}", "OK");
             await Navigation.PushAsync(new MenuPage());
         }
         else
         {
-            await DisplayAlert("Alerta", "El usuario o clave esta incorrecto. Intente de nuevo", "Aceptar");
-        }         
+            await DisplayAlert("Alerta", "El usuario o clave es incorrecto. Intente de nuevo", "Aceptar");
+        }
     }
 
     private async void btnRegistrar_Clicked(object sender, EventArgs e)

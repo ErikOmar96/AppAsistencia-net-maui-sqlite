@@ -2,6 +2,7 @@
 // Agregar contexto de base de datos y Vistas
 using AppAsistencia.DataAccess;
 using AppAsistencia.Vistas;
+using AppAsistencia.VistaModelos;
 // Using de fingerprint
 //using Plugin.Fingerprint.Abstractions;
 //using Plugin.Fingerprint;
@@ -20,20 +21,20 @@ namespace AppAsistencia
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            // Crear instancia de DBContext
-            var dbContext = new AsistenciaDBContext();
-            // Validar si se creo la DB
-            dbContext.Database.EnsureCreated();
-            // Liberar la DB una vez creada
-            dbContext.Dispose();
-            // Agregar
-            builder.Services.AddDbContext<AsistenciaDBContext>();
-            // Inyectar páginas que van usar las base de datos
-            builder.Services.AddTransient<LoginPage>();
-            builder.Services.AddTransient<RegistroPage>();
-            // Agregar singleton de AsistenciaPage        
-            builder.Services.AddSingleton<AsistenciaPage>();
-            builder.Services.AddTransient<MenuPage>();
+            //// Crear instancia de DBContext
+            //var dbContext = new AsistenciaDBContext();
+            //// Validar si se creo la DB
+            //dbContext.Database.EnsureCreated();
+            //// Liberar la DB una vez creada
+            //dbContext.Dispose();
+            //// Agregar
+            //builder.Services.AddDbContext<AsistenciaDBContext>();
+            //// Inyectar páginas que van usar las base de datos
+            //builder.Services.AddTransient<LoginPage>();
+            //builder.Services.AddTransient<RegistroPage>();
+            //// Agregar singleton de AsistenciaPage        
+            //builder.Services.AddSingleton<AsistenciaPage>();
+            //builder.Services.AddTransient<MenuPage>();
             
 
 #if DEBUG
@@ -41,6 +42,9 @@ namespace AppAsistencia
 #endif
             // Agregar esta linea
             //builder.Services.AddSingleton(typeof(IFingerprint), CrossFingerprint.Current);
+            builder.Services.AddSingleton<AsistenciaDBContext>();
+            builder.Services.AddSingleton<AsistenciaVM>();
+            builder.Services.AddSingleton<AsistenciaPage>();
             return builder.Build();
         }
     }
