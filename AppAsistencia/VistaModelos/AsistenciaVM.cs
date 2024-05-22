@@ -31,7 +31,10 @@ namespace AppAsistencia.VistaModelos
         private string estadoAsistencia = string.Empty;
         [ObservableProperty]
         private UsuarioDTO usuarioDTO;
-
+        [ObservableProperty]
+        private DateTime fechaAsistencia;
+        [ObservableProperty]
+        private string textoAsistencia = string.Empty;
 
         // public async void ValidarBiometrico()
         // {
@@ -60,22 +63,30 @@ namespace AppAsistencia.VistaModelos
 
         public async Task Guardar()
         {
+            // Iniciacializar DTOAsistencia
             var guardarAsistencia = new AsistenciaDTO
             {
                 IdAsistencia = IdAsistencia,
-                Usuario = usuarioDTO,
+                Usuario = UsuarioDTO,
+                FechaAsistencia = FechaAsistencia,
+                TextoAsistencia = TextoAsistencia,
+                EstadoAsistencia = EstadoAsistencia
             };
 
-            var asistencia = new Asistencia 
+            await Task.Run(async () =>
             {
-                IdAsistencia = IdAsistencia,
-                IdUsuario = UsuarioDTO.IdUsuario,
-                FechaAsistencia = DateTime.Now,
-                EstadoAsistencia = "Presente"
-            };
-            _dbContext.Add(asistencia);
-            await _dbContext.SaveChangesAsync();
-            await Shell.Current.DisplayAlert("EXITO", "Se ha registrado su asistencia en la BD", "OK");
+                var asistencia = new Asistencia 
+                {
+                    IdAsistencia = IdAsistencia,
+                    IdUsuario = UsuarioDTO.IdUsuario,
+                    FechaAsistencia = DateTime.Now,
+                    EstadoAsistencia = "Presente"
+                };
+                _dbContext.Add(asistencia);
+                await _dbContext.SaveChangesAsync();
+                guardarAsistencia.IdAsistencia = asistencia.IdAsistencia;
+                await Shell.Current.DisplayAlert("EXITO", "Se ha registrado su asistencia en la BD", "OK");
+            });       
         }                                                 
     }
 }
