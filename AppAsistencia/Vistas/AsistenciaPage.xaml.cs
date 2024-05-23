@@ -1,14 +1,16 @@
+using AppAsistencia.DataAccess;
 using AppAsistencia.VistaModelos;
-//using Plugin.Fingerprint;
-//using Plugin.Fingerprint.Abstractions;
 
 namespace AppAsistencia.Vistas;
 
 public partial class AsistenciaPage : ContentPage
 {
-    public AsistenciaPage()
+    // Vraiable para referenciar a la base de datos
+    private readonly AsistenciaDBContext _context;
+    public AsistenciaPage(AsistenciaDBContext context)
     {
         InitializeComponent();
+        _context = context;
     }
 
     private void btnMarcarAsistencia_Clicked(object sender, EventArgs e)
