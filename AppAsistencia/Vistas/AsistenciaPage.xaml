@@ -30,9 +30,6 @@
                                  x:Name="imgAsistencia"
                                  Pressed="imgAsistencia_Pressed"
                                  Released="imgAsistencia_Released">
-                        <!--<ImageButton.Behaviors>
-                            <toolkit:TouchBehavior LongPressCommand="{Binding LongPressCommand}" LongPressDuration="3000"/>
-                        </ImageButton.Behaviors>-->
                     </ImageButton>
                     <Button Text="Marcar Asistencia"
                         TextColor="Black"

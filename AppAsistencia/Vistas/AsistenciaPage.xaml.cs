@@ -8,9 +8,7 @@ public partial class AsistenciaPage : ContentPage
 {
     // Variable para referenciar a la base de datos
     private readonly AsistenciaDBContext _context;
-    public Command LongPressCommand { get; set; }
     private bool pulsacionLarga;
-
     private DateTime pressStartTime;
 
     public AsistenciaPage(AsistenciaDBContext context)

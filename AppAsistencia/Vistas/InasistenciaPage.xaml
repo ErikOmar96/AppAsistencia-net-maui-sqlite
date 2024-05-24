@@ -22,9 +22,13 @@
                            FontAttributes="Bold"
                            FontSize="25"
                            HorizontalTextAlignment="Center"/>
-                    <Image Source="huella"
-                           Aspect="AspectFit"
-                           HorizontalOptions="Center"/>
+                    <ImageButton Source="huella"
+                                 Aspect="AspectFit"
+                                 HeightRequest="300"
+                                 HorizontalOptions="Center"
+                                 x:Name="imgInasistencia"
+                                 Pressed="imgInasistencia_Pressed"
+                                 Released="imgInasistencia_Released"/>
                     <Label Text="Ingrese su motivo"
                            FontAttributes="Bold"
                            TextColor="White"

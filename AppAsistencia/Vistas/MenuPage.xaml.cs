@@ -24,12 +24,12 @@ public partial class MenuPage : ContentPage
 
     private async void btnJustificarTardanza_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new TardanzaPage());
+        await Navigation.PushAsync(new TardanzaPage(_context));
     }
 
     private async void btnJustificarInasistencia_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new InasistenciaPage());
+        await Navigation.PushAsync(new InasistenciaPage(_context));
     }
 
     private async void btnVerAsistencias_Clicked(object sender, EventArgs e)
