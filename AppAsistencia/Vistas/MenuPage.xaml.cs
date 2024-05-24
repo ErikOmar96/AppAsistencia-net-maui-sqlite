@@ -1,13 +1,17 @@
 //using Plugin.Fingerprint.Abstractions;
 
+using AppAsistencia.DataAccess;
+
 namespace AppAsistencia.Vistas;
 
 public partial class MenuPage : ContentPage
 {
-    public MenuPage()
+    private readonly AsistenciaDBContext _context;
+
+    public MenuPage(AsistenciaDBContext context)
 	{
 		InitializeComponent();
-
+        _context = context;
         // Llamar al método para actualizar el estado del botón de marcar asistencia
         //ActualizarEstadoBotonAsistencia();
 
@@ -15,7 +19,7 @@ public partial class MenuPage : ContentPage
 
     private async void btnMarcarAsistencia_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new AsistenciaPage()); // Necesita un paráemtro IFingerprint
+        await Navigation.PushAsync(new AsistenciaPage(_context)); // Aquí es el error
     }
 
     private async void btnJustificarTardanza_Clicked(object sender, EventArgs e)

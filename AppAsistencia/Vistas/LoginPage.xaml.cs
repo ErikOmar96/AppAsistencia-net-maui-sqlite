@@ -26,7 +26,7 @@ public partial class LoginPage : ContentPage
         if (usuarioAutenticado != null)
         {
             await DisplayAlert("AVISO", $"Bienvenido {txtUsuario.Text}", "OK");
-            await Navigation.PushAsync(new MenuPage());
+            await Navigation.PushAsync(new MenuPage(_dbContext));
         }
         else
         {

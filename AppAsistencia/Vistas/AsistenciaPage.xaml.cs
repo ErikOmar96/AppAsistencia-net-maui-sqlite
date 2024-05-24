@@ -1,21 +1,78 @@
-using AppAsistencia.DataAccess;
+Ôªøusing AppAsistencia.DataAccess;
+using AppAsistencia.Modelos;
 using AppAsistencia.VistaModelos;
 
 namespace AppAsistencia.Vistas;
 
 public partial class AsistenciaPage : ContentPage
 {
-    // Vraiable para referenciar a la base de datos
+    // Variable para referenciar a la base de datos
     private readonly AsistenciaDBContext _context;
+    public Command LongPressCommand { get; set; }
+    private bool pulsacionLarga;
+
+    private DateTime pressStartTime;
+
     public AsistenciaPage(AsistenciaDBContext context)
     {
         InitializeComponent();
         _context = context;
+        btnMarcarAsistencia.IsEnabled = false;
     }
 
-    private void btnMarcarAsistencia_Clicked(object sender, EventArgs e)
+
+    private async void imgAsistencia_Pressed(object sender, EventArgs e)
     {
-        //var asistenciaVM = new AsistenciaVM(CrossFingerprint.Current); // necesita un par·metro de tipo IFingerprint
-        //asistenciaVM.ValidarBiometrico(); // AquÌ se llama la mÈtodo para autenticaciÛn biomÈtrica
+        pulsacionLarga = true;
+        pressStartTime = DateTime.Now;
+        await Task.Delay(3000);
+
+        if (pulsacionLarga && (DateTime.Now - pressStartTime).TotalMilliseconds >= 3000)
+        {
+            await DisplayAlert("AVISO", "Asistencia marcada correctamente", "OK");
+            // Pulsaci√≥n larga exitosa, registrar asistencia
+            var asistencia = new Asistencia
+            {
+                FechaAsistencia = DateTime.Now,
+                EstadoAsistencia = "Presente",
+                TextoAsistencia = "Asistencia marcada con huella digital",
+                IdUsuario = 1 // Asigna el IdUsuario correspondiente, aseg√∫rate de que sea correcto
+            };
+
+            try
+            {
+                bool isAdded = await _context.AddItemAsync(asistencia);
+
+                if (isAdded)
+                {
+                    await DisplayAlert("√âxito", "Asistencia marcada correctamente.", "OK");
+                }
+                else
+                {
+                    await DisplayAlert("Error", "Hubo un problema al registrar la asistencia.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones
+                await DisplayAlert("Error", $"Ocurri√≥ un error: {ex.Message}", "OK");
+            }
+            // Habilitar bot√≥n
+            btnMarcarAsistencia.IsEnabled = true;
+        }
+        else
+        {
+            await DisplayAlert("Pulsaci√≥n Corta", "La pulsaci√≥n ha sido corta", "Aceptar");
+        }
+    }
+
+    private void imgAsistencia_Released(object sender, EventArgs e)
+    {
+        pulsacionLarga = false;
+    }
+
+    private async void btnMarcarAsistencia_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new MenuPage(_context));
     }
 }

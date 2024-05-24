@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net8.0-android</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
@@ -61,6 +61,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="DTOs\**" />
+	  <Compile Remove="DTOs\**" />
+	  <EmbeddedResource Remove="DTOs\**" />
+	  <MauiCss Remove="DTOs\**" />
+	  <MauiXaml Remove="DTOs\**" />
+	  <None Remove="DTOs\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Images\actualizar_datos.png" />
 	  <None Remove="Resources\Images\asistencia.png" />
 	  <None Remove="Resources\Images\huella.png" />
@@ -104,10 +113,6 @@
 	  <MauiXaml Update="Vistas\VerAsistenciasPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="DTOs\" />
 	</ItemGroup>
 
 </Project>
