@@ -33,8 +33,8 @@ namespace AppAsistencia.VistaModelos
         [ObservableProperty]
         private string _busyText;
 
-        [RelayCommand]
-        private async Task LoadAsistenciasAsync()
+        
+        public async Task LoadAsistenciasAsync()
         {
             await ExecuteAsync(async () => 
             {

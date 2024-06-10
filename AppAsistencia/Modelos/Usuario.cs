@@ -9,6 +9,7 @@ namespace AppAsistencia.Modelos
         public int IdUsuario { get; set; }
         public string NombreUsuario { get; set; }
         public string ClaveUsuario { get; set; }
+        public string? CargoUsuario { get; set; }
         public string CorreoUsuario { get; set; }
     }
 }

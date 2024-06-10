@@ -1,17 +1,20 @@
 //using Plugin.Fingerprint.Abstractions;
 
 using AppAsistencia.DataAccess;
+using AppAsistencia.VistaModelos;
 
 namespace AppAsistencia.Vistas;
 
 public partial class MenuPage : ContentPage
 {
     private readonly AsistenciaDBContext _context;
+    private readonly AsistenciaVM _vistaModelo;
 
     public MenuPage(AsistenciaDBContext context)
 	{
 		InitializeComponent();
         _context = context;
+        _vistaModelo = new AsistenciaVM(context);
         // Llamar al método para actualizar el estado del botón de marcar asistencia
         //ActualizarEstadoBotonAsistencia();
 
@@ -34,7 +37,7 @@ public partial class MenuPage : ContentPage
 
     private async void btnVerAsistencias_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VerAsistenciasPage());
+        await Navigation.PushAsync(new VerAsistenciasPage(_vistaModelo));
     }
 
     private async void btnActualizarDatos_Clicked(object sender, EventArgs e)

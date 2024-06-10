@@ -27,6 +27,10 @@
                            BackgroundColor="White"
                            TextColor="Black"
                            x:Name="txtNombre"/>
+                    <Entry Placeholder="Cargo"
+                           BackgroundColor="White"
+                           TextColor="Black"
+                           x:Name="txtCargo"/>         
                     <Entry Placeholder="Clave"
                            IsPassword="True"
                            BackgroundColor="White"
