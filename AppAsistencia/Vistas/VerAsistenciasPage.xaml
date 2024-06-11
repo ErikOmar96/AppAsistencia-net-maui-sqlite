@@ -5,8 +5,15 @@
              Title="VerAsistencias"
              xmlns:vm="clr-namespace:AppAsistencia.VistaModelos"
              xmlns:models="clr-namespace:AppAsistencia.Modelos"
+             xmlns:converters="clr-namespace:AppAsistencia.Converters"
              x:DataType="vm:AsistenciaVM"
              BackgroundColor="#bc08fc">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NullToBooleanConverter x:Key="NullToBooleanConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <ScrollView Margin="15">
             <StackLayout BackgroundColor="#bc08fc">
@@ -29,6 +36,10 @@
                 <DatePicker x:Name="dtpFechaAsistencia"
                             Format="dd/MM/yyyy"
                             />
+                <Button Text="Buscar"
+                        TextColor="Black"
+                        BackgroundColor="White"
+                        Margin="10"/>
                 <Grid RowDefinitions="Auto, *">
                     <Label Grid.Row="0"
                            Text="Mis Asistencias"
@@ -50,27 +61,31 @@
                                           RowSpacing="5">
                                         <Label Grid.Row="0"
                                                Grid.Column="0"
-                                               Text="{Binding IdUsuario}"/>
+                                               Text="{Binding IdUsuario, StringFormat='ID: {0}'}"/>
                                         <Label Grid.Row="1"
                                                Grid.Column="0"
-                                               Text="{Binding FechaAsistencia}"
+                                               Text="{Binding FechaAsistencia, StringFormat='Fecha: {0}'}"
                                                FontAttributes="Bold"/>
                                         <Label Grid.Row="2"
                                                Grid.Column="0"
-                                               Text="{Binding EstadoAsistencia}"
+                                               Text="{Binding EstadoAsistencia, StringFormat='Estado: {0}'}"
                                                FontAttributes="Bold"/>
                                         <Button Grid.Row="0"
                                                 Grid.Column="1"
                                                 Text="Editar"
                                                 Padding="0"
                                                 HeightRequest="25"
-                                                FontSize="12"/>
+                                                FontSize="12"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AsistenciaVM}}, Path=SetOperatingAsistenciaCommand}"
+                                                CommandParameter="{Binding .}"/>
                                         <Button Grid.Row="1"
                                                 Grid.Column="1"
                                                 Text="Eliminar"
                                                 Padding="0"
                                                 HeightRequest="25"
-                                                FontSize="12"/>
+                                                FontSize="12"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AsistenciaVM}}, Path=DeleteAsistenciaCommand}"
+                                                CommandParameter="{Binding IdAsistencia}"/>
                                     </Grid>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
@@ -89,7 +104,8 @@
                         </CollectionView>
 
                         <VerticalStackLayout Grid.Row="1"
-                                             x:Name="FormEditar">
+                                             x:Name="FormEditar"
+                                             IsVisible="{Binding OperatingAsistencia, Converter={StaticResource NullToBooleanConverter}}">
                             <BoxView Color="{DynamicResource #bc08fc}"
                                      HeightRequest="1"/>
                             <Grid RowDefinitions="Auto, Auto, Auto, Auto"
@@ -101,7 +117,8 @@
                                 <VerticalStackLayout Grid.Row="0"
                                                      Grid.ColumnSpan="1">
                                     <Label Text="Fecha Asistencia"/>
-                                    <DatePicker Format="dd/MM/YYYY"
+                                    <DatePicker Format="dd/MM/yyyy"
+                                                Date="{Binding OperatingAsistencia.FechaAsistencia}"
                                                 Margin="0"
                                                 BackgroundColor="White"
                                                 TextColor="Black"/>
@@ -111,6 +128,7 @@
                                     <Label Text="Estado Asistencia"/>
                                     <Picker x:Name="pickerEstadoAsistencia"
                                             Title="Selecciona el estado de asistencia"
+                                            SelectedItem="{Binding OperatingAsistencia.EstadoAsistencia}"
                                             BackgroundColor="White"
                                             TextColor="Black">
                                         <Picker.ItemsSource>
@@ -139,15 +157,13 @@
                                         HorizontalOptions="Center"
                                         VerticalOptions="End"
                                         CornerRadius="4"
-                                        Padding="50, 0"/>
+                                        Padding="50, 0"
+                                        Command="{Binding SaveAsistenciaCommand}"/>
                             </Grid>
                         </VerticalStackLayout>
                     </Grid>
                 </Grid>
-                <Button Text="Buscar"
-                        TextColor="Black"
-                        BackgroundColor="White"
-                        Margin="10"/>
+                
                 <Label Text="Descargue su reporte de asistencias"
                        TextColor="White"
                        HorizontalTextAlignment="Center"

@@ -10,11 +10,22 @@ namespace AppAsistencia.Modelos
         public string EstadoAsistencia { get; set; }
         public string TextoAsistencia { get; set; }
         public int IdUsuario {  get; set; } // Foreign Key
-        public Asistencia Clone() => MemberwiseClone() as Asistencia;
-        
+        //public Asistencia Clone() => MemberwiseClone() as Asistencia;
+        public Asistencia Clone()
+        {
+            return (Asistencia)this.MemberwiseClone();
+        }
+
 
         [Ignore]
         public Usuario Usuario { get; set; }
+
+        // Método para ajustar la fecha actual
+        public void AjustarHoraActual()
+        {
+            FechaAsistencia = new DateTime(FechaAsistencia.Year, FechaAsistencia.Month, FechaAsistencia.Day,
+                                           DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+        }
 
         // Método de validación
         public (bool IsValid, string? ErrorMessage) Validate()
@@ -54,5 +65,5 @@ namespace AppAsistencia.Modelos
             return (true, null);
         }
     }
-    }
+    
 }
