@@ -39,6 +39,9 @@
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="CenterAndExpand"
                         BackgroundColor="White"/>
+                    <Button Text="Usar Lector de Huella"
+                            x:Name="btnLectorHuella"
+                            Clicked="btnLectorHuella_Clicked"/>
                 </StackLayout>
             </Frame>
         </Grid>

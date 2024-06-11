@@ -1,6 +1,8 @@
 ﻿using AppAsistencia.DataAccess;
 using AppAsistencia.Modelos;
 using AppAsistencia.VistaModelos;
+// Using del paquete Plugin.Maui.Biometric
+using Plugin.Maui.Biometric;
 
 namespace AppAsistencia.Vistas;
 
@@ -33,7 +35,7 @@ public partial class AsistenciaPage : ContentPage
             {
                 FechaAsistencia = DateTime.Now,
                 EstadoAsistencia = "Presente",
-                TextoAsistencia = "Asistencia marcada con huella digital",
+                TextoAsistencia = "Asistencia marcada con pulsación larga",
                 IdUsuario = 1 // Asigna el IdUsuario correspondiente, asegúrate de que sea correcto
             };
 
@@ -72,5 +74,51 @@ public partial class AsistenciaPage : ContentPage
     private async void btnMarcarAsistencia_Clicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new MenuPage(_context));
+    }
+
+    private async void btnLectorHuella_Clicked(object sender, EventArgs e)
+    {
+        // Variable para guardar el resultado
+        var resultado = await BiometricAuthenticationService.Default.AuthenticateAsync(new AuthenticationRequest()
+        { 
+            Title = "Por favor, usa el lector de huella para autenticar la asistencia",
+            NegativeText = "Autenticación cancelada"
+        }, CancellationToken.None);
+
+        // Validar resultado de la autenticación
+        if (resultado.Status == BiometricResponseStatus.Success)
+        {
+            await DisplayAlert("EXITO", "Autenticación exitosa", "OK");
+            var asistencia = new Asistencia 
+            {
+                FechaAsistencia = DateTime.Now,
+                EstadoAsistencia = "Presente",
+                TextoAsistencia = "Asistencia marcada con huella digital",
+                IdUsuario = 1 // Asigna el IdUsuario correspondiente, asegúrate de que sea correcto
+            };
+            try
+            {
+                bool isAdded = await _context.AddItemAsync(asistencia);
+
+                if (isAdded)
+                {
+                    await DisplayAlert("Éxito", "Asistencia marcada correctamente.", "OK");
+                    await Navigation.PushAsync(new MenuPage(_context));
+                }
+                else
+                {
+                    await DisplayAlert("Error", "Hubo un problema al registrar la asistencia.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones
+                await DisplayAlert("Error", $"Ocurrió un error: {ex.Message}", "OK");
+            }
+        }
+        else
+        {
+            await DisplayAlert("ERROR", "No se pudo autenticar la huella", "OK");
+        }
     }
 }

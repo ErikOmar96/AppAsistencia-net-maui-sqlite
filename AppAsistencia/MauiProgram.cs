@@ -3,9 +3,8 @@
 using AppAsistencia.DataAccess;
 using AppAsistencia.Vistas;
 using AppAsistencia.VistaModelos;
-// Using de fingerprint
-//using Plugin.Fingerprint.Abstractions;
-//using Plugin.Fingerprint;
+// Using de Plugin instalado
+using Plugin.Maui.Biometric;
 
 namespace AppAsistencia
 {
@@ -45,6 +44,8 @@ namespace AppAsistencia
             builder.Services.AddSingleton<AsistenciaDBContext>();
             builder.Services.AddSingleton<AsistenciaVM>();
             builder.Services.AddSingleton<AsistenciaPage>();
+            // Inyectar Singleton de plugin
+            builder.Services.AddSingleton<IBiometric>(BiometricAuthenticationService.Default);
             return builder.Build();
         }
     }
