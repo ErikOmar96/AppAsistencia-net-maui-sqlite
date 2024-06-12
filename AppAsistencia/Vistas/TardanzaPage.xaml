@@ -48,6 +48,14 @@
                             VerticalOptions="CenterAndExpand"                           
                             x:Name="btnJustificarTardanza"
                             Clicked="btnJustificarTardanza_Clicked"/>
+                    <Button Text="Usar Lector de Huella"
+                            TextColor="Black"
+                            x:Name="btnLectorHuellaTardanza"
+                            Clicked="btnLectorHuellaTardanza_Clicked"
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="CenterAndExpand"
+                            Margin="15"/>
                 </StackLayout>
             </Frame>
         </Grid>

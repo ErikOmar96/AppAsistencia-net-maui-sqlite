@@ -16,7 +16,7 @@
                BackgroundColor="#bc08fc">
                 <StackLayout VerticalOptions="Center"
                          HorizontalOptions="Center">
-                    <Label Text="Pulse el lector de huella"
+                    <Label Text="Pulse la imagen por 3 segundos"
                        TextColor="White"
                        VerticalOptions="CenterAndExpand" 
                        HorizontalOptions="CenterAndExpand"
@@ -39,9 +39,15 @@
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="CenterAndExpand"
                         BackgroundColor="White"/>
+                    
                     <Button Text="Usar Lector de Huella"
                             x:Name="btnLectorHuella"
-                            Clicked="btnLectorHuella_Clicked"/>
+                            Clicked="btnLectorHuella_Clicked"
+                            TextColor="Black"
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="CenterAndExpand"
+                            Margin="15"/>
                 </StackLayout>
             </Frame>
         </Grid>

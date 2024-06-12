@@ -17,4 +17,5 @@ public partial class VerAsistenciasPage : ContentPage
 		base.OnAppearing();
 		await _vistaModelo.LoadAsistenciasAsync();
 	}
+
 }

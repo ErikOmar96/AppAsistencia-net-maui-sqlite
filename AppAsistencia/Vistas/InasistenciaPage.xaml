@@ -48,6 +48,14 @@
                             BackgroundColor="White"
                             x:Name="btnJustificarInasistencia"
                             Clicked="btnJustificarInasistencia_Clicked"/>
+                    <Button Text="Usar Lector de Huella"
+                            x:Name="btnLectorHuellaInasistencia"
+                            Clicked="btnLectorHuellaInasistencia_Clicked"
+                            TextColor="Black"
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="CenterAndExpand"
+                            Margin="15"/>
                 </StackLayout>
             </Frame>
         </Grid>

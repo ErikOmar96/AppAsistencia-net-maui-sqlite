@@ -39,7 +39,10 @@ namespace AppAsistencia.VistaModelos
         [ObservableProperty]
         private string _busyText;
 
-        
+        [ObservableProperty]
+        private DateTime _selectedDate = DateTime.Now;
+
+
         public async Task LoadAsistenciasAsync()
         {
             await ExecuteAsync(async () => 
@@ -148,8 +151,45 @@ namespace AppAsistencia.VistaModelos
             }, "Eliminando Asistencia...");
         }
 
+        //[RelayCommand]
+        //private async Task SearchAsistenciasByDateAsync()
+        //{
+        //    await ExecuteAsync(async () =>
+        //    {
+        //        var asistencias = await _context.GetFilteredAsync<Asistencia>(a => a.FechaAsistencia.Date == SelectedDate.Date);
+        //        if (asistencias is not null && asistencias.Any())
+        //        {
+        //            Asistencias.Clear();
+        //            foreach (var asistencia in asistencias)
+        //            {
+        //                Asistencias.Add(asistencia);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            Asistencias.Clear();
+        //        }
+        //    }, "Buscando asistencias...");
+        //}
+
         private async Task ExecuteAsync(Func<Task> operation, string? busyText = null)
         {
+            //IsBusy = true;
+            //BusyText = busyText ?? "Procesando...";
+            //try
+            //{
+            //    await operation?.Invoke();
+            //}
+            //catch (Exception ex)
+            //{
+            //    // Manejar la excepción de manera adecuada
+            //    await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            //}
+            //finally
+            //{
+            //    IsBusy = false;
+            //    BusyText = busyText ?? "Procesando...";
+            //}
             IsBusy = true;
             BusyText = busyText ?? "Procesando...";
             try
@@ -164,7 +204,7 @@ namespace AppAsistencia.VistaModelos
             finally
             {
                 IsBusy = false;
-                BusyText = busyText ?? "Procesando...";
+                BusyText = null;
             }
         }
     }

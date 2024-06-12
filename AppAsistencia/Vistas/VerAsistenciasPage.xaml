@@ -24,10 +24,6 @@
                        FontAttributes="Bold"
                        FontSize="25"
                        Margin="10"/>
-                <!--<Entry Placeholder="Busque Aquí"
-                       BackgroundColor="White"
-                       TextColor="Black"
-                       Margin="10"/>-->
                 <Label Text="Seleccione la fecha"
                        TextColor="White"
                        HorizontalTextAlignment="Center"
@@ -39,7 +35,8 @@
                 <Button Text="Buscar"
                         TextColor="Black"
                         BackgroundColor="White"
-                        Margin="10"/>
+                        Margin="10"
+                        />
                 <Grid RowDefinitions="Auto, *">
                     <Label Grid.Row="0"
                            Text="Mis Asistencias"
@@ -58,18 +55,23 @@
                                 <DataTemplate x:DataType="models:Asistencia">
                                     <Grid RowDefinitions="Auto, Auto, Auto"
                                           ColumnDefinitions="*, Auto"
-                                          RowSpacing="5">
+                                          RowSpacing="5"
+                                          BackgroundColor="White">
                                         <Label Grid.Row="0"
                                                Grid.Column="0"
-                                               Text="{Binding IdUsuario, StringFormat='ID: {0}'}"/>
+                                               Text="{Binding IdUsuario, StringFormat='ID: {0}'}"
+                                               FontAttributes="Bold"
+                                               TextColor="Black"/>
                                         <Label Grid.Row="1"
                                                Grid.Column="0"
                                                Text="{Binding FechaAsistencia, StringFormat='Fecha: {0}'}"
-                                               FontAttributes="Bold"/>
+                                               FontAttributes="Bold"
+                                               TextColor="Black"/>
                                         <Label Grid.Row="2"
                                                Grid.Column="0"
                                                Text="{Binding EstadoAsistencia, StringFormat='Estado: {0}'}"
-                                               FontAttributes="Bold"/>
+                                               FontAttributes="Bold"
+                                               TextColor="Black"/>
                                         <Button Grid.Row="0"
                                                 Grid.Column="1"
                                                 Text="Editar"
