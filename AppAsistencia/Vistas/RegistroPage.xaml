@@ -26,20 +26,29 @@
                     <Entry Placeholder="Nombre"
                            BackgroundColor="White"
                            TextColor="Black"
-                           x:Name="txtNombre"/>
-                    <Entry Placeholder="Cargo"
-                           BackgroundColor="White"
-                           TextColor="Black"
-                           x:Name="txtCargo"/>         
+                           x:Name="txtNombre"
+                           Margin="10"/>
                     <Entry Placeholder="Clave"
                            IsPassword="True"
                            BackgroundColor="White"
                            TextColor="Black"
-                           x:Name="txtClave"/>
+                           x:Name="txtClave"
+                           Margin="10"/>
                     <Entry Placeholder="Correo"
                            BackgroundColor="White"
                            TextColor="Black"
-                           x:Name="txtCorreo"/>
+                           x:Name="txtCorreo"
+                           Margin="10"/>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
+                        <CheckBox IsChecked="False"
+                                  x:Name="chkEsAdministrador"
+                                  Margin="10"
+                                  CheckedChanged="chkEsAdministrador_CheckedChanged"/>
+                        <Label Text="Registrar como administrador" 
+                               VerticalOptions="Center" 
+                               Margin="10"/>
+                    </StackLayout>
+                    
                     <Button Text="Registrar"
                         TextColor="Black"
                         BackgroundColor="White"

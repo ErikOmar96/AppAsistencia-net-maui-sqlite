@@ -1,13 +1,11 @@
-// Llamar a DataAcces y VistaModelos
+// Llamar a DataAccess y VistaModelos
 using AppAsistencia.DataAccess;
 using AppAsistencia.VistaModelos;
-//using Plugin.Fingerprint.Abstractions;
 
 namespace AppAsistencia.Vistas;
 
 public partial class LoginPage : ContentPage
 {
-    //
     private readonly AsistenciaDBContext _dbContext;
     public LoginPage()
 	{
@@ -27,7 +25,7 @@ public partial class LoginPage : ContentPage
         {
             await DisplayAlert("AVISO", $"Bienvenido {txtUsuario.Text}", "OK");
             // Cambiar la MainPage a MenuPage
-            Application.Current.MainPage = new NavigationPage(new MenuPage(_dbContext));
+            Application.Current.MainPage = new NavigationPage(new MenuPage(_dbContext, usuarioAutenticado));
         }
         else
         {

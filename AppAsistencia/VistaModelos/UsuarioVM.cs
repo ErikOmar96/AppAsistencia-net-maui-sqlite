@@ -9,6 +9,7 @@ using AppAsistencia.Utilidades;
 using AppAsistencia.Modelos;
 using System.Threading;
 
+
 namespace AppAsistencia.VistaModelos
 {
     public partial class UsuarioVM : ObservableObject /*, IQueryAttributable*/
@@ -25,29 +26,48 @@ namespace AppAsistencia.VistaModelos
             _dbContext = context;
         }
 
-        public async Task<bool> RegistrarUsuario(Usuario usuario)
+        public async Task<bool> RegistrarUsuario(Usuario nuevoUsuario)
         {
-            // Verificar si ya existe un usuario con el mismo nombre de usuario o correo electrónico
-            var usuariosExistentes = await _dbContext.GetFilteredAsync<Usuario>(u => u.NombreUsuario == usuario.NombreUsuario || u.CorreoUsuario == usuario.CorreoUsuario);
+            // Verificar si ya existe un administrador
+            var existeAdministrador = (await _dbContext.GetFilteredAsync<Usuario>(u => u.TipoUsuario == "Administrador")).Any();
 
-            if (usuariosExistentes.Any())
+            //// Verificar si ya existe un usuario con el mismo nombre de usuario o correo electrónico
+            //var usuariosExistentes = await _dbContext.GetFilteredAsync<Usuario>(u => u.NombreUsuario == nuevoUsuario.NombreUsuario || u.CorreoUsuario == nuevoUsuario.CorreoUsuario);
+
+            // Si el nuevo usuario es un administrador y ya existe uno, no permitir el registro
+            if (nuevoUsuario.TipoUsuario == "Administrador" && existeAdministrador)
             {
-                // El usuario ya existe, no se puede registrar
                 return false;
             }
-            else
+
+            //if (usuariosExistentes.Any())
+            //{
+            //    // El usuario ya existe, no se puede registrar
+            //    return false;
+            //}
+            //else
+            //{
+            //    // No existe un usuario con el mismo nombre de usuario o correo electrónico, por lo que se puede registrar
+            //    bool result = await _dbContext.AddItemAsync(usuario);
+            //    return result;
+            //}
+
+
+            // Verificar si ya existe un usuario con el mismo nombre de usuario o correo
+            var existeUsuario = (await _dbContext.GetFilteredAsync<Usuario>(u => u.NombreUsuario == nuevoUsuario.NombreUsuario || u.CorreoUsuario == nuevoUsuario.CorreoUsuario)).Any();
+
+            if (!existeUsuario)
             {
-                // No existe un usuario con el mismo nombre de usuario o correo electrónico, por lo que se puede registrar
-                bool result = await _dbContext.AddItemAsync(usuario);
-                return result;
+                return await _dbContext.AddItemAsync(nuevoUsuario);
             }
+
+            return false;
         }
 
         // Método para autenticar un usuario
-        public async Task<Usuario> AutenticarAsync(string nombre, string clave)
+        public async Task<Usuario?> AutenticarAsync(string nombreUsuario, string clave)
         {
-            var usuarios = await _dbContext.GetFilteredAsync<Usuario>(t => t.NombreUsuario == nombre && t.ClaveUsuario == clave);
-            return usuarios.FirstOrDefault();
+            return await _dbContext.GetUsuarioAsync(nombreUsuario, clave);
         }
     }
 }

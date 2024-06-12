@@ -100,6 +100,13 @@ namespace AppAsistencia.DataAccess
             return usuarioAdded;
         }
 
+        // Método para obtener un usuario por nombre de usuario y clave
+        public async Task<Usuario?> GetUsuarioAsync(string nombreUsuario, string clave)
+        {
+            var usuarios = await GetFilteredAsync<Usuario>(u => u.NombreUsuario == nombreUsuario && u.ClaveUsuario == clave);
+            return usuarios.FirstOrDefault();
+        }
+
         public async ValueTask DisposeAsync() => await _connection?.CloseAsync();
 
     }

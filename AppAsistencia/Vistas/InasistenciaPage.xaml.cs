@@ -8,16 +8,18 @@ public partial class InasistenciaPage : ContentPage
 {
     // Variable para referenciar a la base de datos
     private readonly AsistenciaDBContext _context;
+    private readonly Usuario _usuarioAutenticado;
     private bool pulsacionLargaInasistencia;
     private DateTime pressStartTime;
 
-    public InasistenciaPage(AsistenciaDBContext context)
-	{
-		InitializeComponent();
+    public InasistenciaPage(AsistenciaDBContext context, Usuario usuarioAutenticado)
+    {
+        InitializeComponent();
         _context = context;
         btnJustificarInasistencia.IsEnabled = false;
-	}
- 
+        _usuarioAutenticado = usuarioAutenticado;
+    }
+
     private async void imgInasistencia_Pressed(object sender, EventArgs e)
     {
         pulsacionLargaInasistencia = true;
@@ -80,7 +82,7 @@ public partial class InasistenciaPage : ContentPage
 
     private async void btnJustificarInasistencia_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new MenuPage(_context));
+        await Navigation.PushAsync(new MenuPage(_context, _usuarioAutenticado));
     }
 
     private async void btnLectorHuellaInasistencia_Clicked(object sender, EventArgs e)
@@ -117,7 +119,7 @@ public partial class InasistenciaPage : ContentPage
                     if (isAdded)
                     {
                         await DisplayAlert("Éxito", "Inasistencia justificada correctamente.", "OK");
-                        await Navigation.PushAsync(new MenuPage(_context));
+                        await Navigation.PushAsync(new MenuPage(_context, _usuarioAutenticado));
                     }
                     else
                     {

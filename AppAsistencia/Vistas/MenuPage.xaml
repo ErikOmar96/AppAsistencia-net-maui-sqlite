@@ -94,7 +94,7 @@
                                HorizontalTextAlignment="Center"/>
                     </StackLayout>
                 </Frame>
-                <Frame Grid.Row="2"
+                <!--<Frame Grid.Row="2"
                        Grid.Column="0"
                        CornerRadius="10"
                        BackgroundColor="#bc08fc"
@@ -113,9 +113,9 @@
                                FontFamily="Arial"
                                HorizontalTextAlignment="Center"/>
                     </StackLayout>
-                </Frame>
+                </Frame>-->
                 <Frame Grid.Row="2"
-                       Grid.Column="1"
+                       Grid.Column="0"
                        CornerRadius="10"
                        BackgroundColor="#bc08fc"
                        Margin="10">

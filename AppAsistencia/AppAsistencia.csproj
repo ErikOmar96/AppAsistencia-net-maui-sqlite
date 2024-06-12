@@ -92,9 +92,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Vistas\ActualizarDatosPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Vistas\AsistenciaPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

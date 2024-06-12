@@ -8,19 +8,21 @@ namespace AppAsistencia.Vistas;
 public partial class TardanzaPage : ContentPage
 {
     private readonly AsistenciaDBContext _dbContext;
+    private readonly Usuario _usuarioAutenticado;
     private bool pulsacionLargaTardanza;
     private DateTime pressStartTime;
 
-    public TardanzaPage(AsistenciaDBContext dBContext)
+    public TardanzaPage(AsistenciaDBContext dBContext, Usuario usuarioAutenticado)
 	{
 		InitializeComponent();
         _dbContext = dBContext;
+        _usuarioAutenticado = usuarioAutenticado;
         btnJustificarTardanza.IsEnabled = false;
 	}
      
     private async void btnJustificarTardanza_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new MenuPage(_dbContext));
+        await Navigation.PushAsync(new MenuPage(_dbContext, _usuarioAutenticado));
     }
 
     private async void imgTardanza_Pressed(object sender, EventArgs e)
@@ -116,7 +118,7 @@ public partial class TardanzaPage : ContentPage
                     if (isAdded)
                     {
                         await DisplayAlert("Éxito", "Tardanza justificada correctamente.", "OK");
-                        await Navigation.PushAsync(new MenuPage(_dbContext));
+                        await Navigation.PushAsync(new MenuPage(_dbContext, _usuarioAutenticado));
                     }
                     else
                     {

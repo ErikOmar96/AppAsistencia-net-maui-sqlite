@@ -10,15 +10,13 @@ namespace AppAsistencia.VistaModelos
 {
     public partial class AsistenciaVM : ObservableObject
     {
-        // Campo de tipoIFingerprint
-        //private readonly IFingerprint _fingerprint;
         private readonly AsistenciaDBContext _context;
+        private readonly Usuario _usuarioAutenticado;
 
-
-        public AsistenciaVM(AsistenciaDBContext context)
+        public AsistenciaVM(AsistenciaDBContext context, Usuario usuarioAutenticado)
         {
-            //_fingerprint = fingerprint;
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _usuarioAutenticado = usuarioAutenticado ?? throw new ArgumentNullException(nameof(usuarioAutenticado));
             Asistencias = new ObservableCollection<Asistencia>();
         }
 
@@ -42,75 +40,59 @@ namespace AppAsistencia.VistaModelos
         [ObservableProperty]
         private DateTime _selectedDate = DateTime.Now;
 
-
         public async Task LoadAsistenciasAsync()
         {
-            await ExecuteAsync(async () => 
+            await ExecuteAsync(async () =>
             {
                 var asistencias = await _context.GetAllAsync<Asistencia>();
                 if (asistencias is not null && asistencias.Any())
                 {
-                    //Asistencias ??= new ObservableCollection<Asistencia>();
-
-                    //foreach (var asistencia in asistencias)
-                    //{
-                    //    Asistencias.Add(asistencia);
-                    //}
                     Asistencias.Clear();
                     foreach (var asistencia in asistencias)
                     {
                         Asistencias.Add(asistencia);
                     }
                 }
-            }, "Obteniendo asistencias...");          
+            }, "Obteniendo asistencias...");
         }
 
+        public string TipoUsuarioAutenticado => _usuarioAutenticado.TipoUsuario;
+
         [RelayCommand]
-        private void SetOperatingAsistencia(Asistencia? asistencia) => OperatingAsistencia = asistencia ?? new();
+        private async void SetOperatingAsistencia(Asistencia? asistencia)
+        {
+            if (_usuarioAutenticado.TipoUsuario == "Administrador")
+            {
+                OperatingAsistencia = asistencia ?? new();
+            }
+            else if (Shell.Current != null)
+            {
+                await Shell.Current.DisplayAlert("Permiso Denegado", "No tienes permiso para editar asistencias", "OK");
+            }
+        }
 
         [RelayCommand]
         private async Task SaveAsistenciaAsync()
         {
-            //if (OperatingAsistencia is null)
-            //    return;
+            if (_usuarioAutenticado.TipoUsuario != "Administrador")
+            {
+                if (Shell.Current != null)
+                {
+                    await Shell.Current.DisplayAlert("Permiso Denegado", "No tienes permiso para editar asistencias", "OK");
+                }
+                return;
+            }
 
-            //var (isValid, errorMessage) = OperatingAsistencia.Validate();
-            //if (!isValid)
-            //{
-            //    await Shell.Current.DisplayAlert("Error de validación", errorMessage, "OK");
-            //    return;
-            //}
-
-            //var busyText = OperatingAsistencia.IdAsistencia == 0 ? "Guardar Asistencia" : "Actualizar Asistencia";
-            //await ExecuteAsync(async () => 
-            //{
-            //    if (OperatingAsistencia.IdAsistencia == 0)
-            //    {
-            //        // Guardar asistencia
-            //        await _context.AddItemAsync<Asistencia>(OperatingAsistencia);
-            //        Asistencias.Add(OperatingAsistencia);
-            //    }
-            //    else
-            //    {
-            //        // Actualizar asistencia
-            //        await _context.UpdateItemAsync<Asistencia>(OperatingAsistencia);
-
-            //        var asistenciaCopy = OperatingAsistencia.Clone();
-
-            //        var index = Asistencias.IndexOf(OperatingAsistencia);
-            //        Asistencias.RemoveAt(index);
-
-            //        Asistencias.Insert(index, asistenciaCopy);
-            //    }
-            //    SetOperatingAsistenciaCommand.Execute(new());
-            //}, busyText);
             if (OperatingAsistencia is null)
                 return;
 
             var (isValid, errorMessage) = OperatingAsistencia.Validate();
             if (!isValid)
             {
-                await Shell.Current.DisplayAlert("Error de validación", errorMessage, "OK");
+                if (Shell.Current != null)
+                {
+                    await Shell.Current.DisplayAlert("Error de validación", errorMessage, "OK");
+                }
                 return;
             }
 
@@ -119,7 +101,7 @@ namespace AppAsistencia.VistaModelos
             {
                 if (OperatingAsistencia.IdAsistencia != 0)
                 {
-                    await _context.UpdateItemAsync<Asistencia>(OperatingAsistencia);
+                    await _context.UpdateItemAsync(OperatingAsistencia);
 
                     var asistenciaCopy = OperatingAsistencia.Clone();
                     var index = Asistencias.IndexOf(OperatingAsistencia);
@@ -133,12 +115,20 @@ namespace AppAsistencia.VistaModelos
         [RelayCommand]
         private async Task DeleteAsistenciaAsync(int id)
         {
-            await ExecuteAsync(async () => 
+            if (_usuarioAutenticado.TipoUsuario != "Administrador")
+            {
+                if (Shell.Current != null)
+                {
+                    await Shell.Current.DisplayAlert("Permiso Denegado", "No tienes permiso para eliminar asistencias", "OK");
+                }
+                return;
+            }
+
+            await ExecuteAsync(async () =>
             {
                 if (await _context.DeleteItemByKeyAsync<Asistencia>(id))
                 {
                     var asistencia = Asistencias.FirstOrDefault(a => a.IdAsistencia == id);
-                    //Asistencias.Remove(asistencia);
                     if (asistencia != null)
                     {
                         Asistencias.Remove(asistencia);
@@ -146,60 +136,31 @@ namespace AppAsistencia.VistaModelos
                 }
                 else
                 {
-                    await Shell.Current.DisplayAlert("ERROR ELIMINACIÓN", "No se ha eliminado la asistencia", "OK");
+                    if (Shell.Current != null)
+                    {
+                        await Shell.Current.DisplayAlert("ERROR ELIMINACIÓN", "No se ha eliminado la asistencia", "OK");
+                    }
                 }
             }, "Eliminando Asistencia...");
         }
 
-        //[RelayCommand]
-        //private async Task SearchAsistenciasByDateAsync()
-        //{
-        //    await ExecuteAsync(async () =>
-        //    {
-        //        var asistencias = await _context.GetFilteredAsync<Asistencia>(a => a.FechaAsistencia.Date == SelectedDate.Date);
-        //        if (asistencias is not null && asistencias.Any())
-        //        {
-        //            Asistencias.Clear();
-        //            foreach (var asistencia in asistencias)
-        //            {
-        //                Asistencias.Add(asistencia);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            Asistencias.Clear();
-        //        }
-        //    }, "Buscando asistencias...");
-        //}
-
         private async Task ExecuteAsync(Func<Task> operation, string? busyText = null)
         {
-            //IsBusy = true;
-            //BusyText = busyText ?? "Procesando...";
-            //try
-            //{
-            //    await operation?.Invoke();
-            //}
-            //catch (Exception ex)
-            //{
-            //    // Manejar la excepción de manera adecuada
-            //    await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
-            //}
-            //finally
-            //{
-            //    IsBusy = false;
-            //    BusyText = busyText ?? "Procesando...";
-            //}
             IsBusy = true;
             BusyText = busyText ?? "Procesando...";
             try
             {
-                await operation?.Invoke();
+                if (operation != null)
+                {
+                    await operation.Invoke();
+                }
             }
             catch (Exception ex)
             {
-                // Manejar la excepción de manera adecuada
-                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+                if (Shell.Current != null)
+                {
+                    await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+                }
             }
             finally
             {

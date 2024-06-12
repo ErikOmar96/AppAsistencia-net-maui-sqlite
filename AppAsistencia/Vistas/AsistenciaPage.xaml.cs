@@ -10,14 +10,16 @@ public partial class AsistenciaPage : ContentPage
 {
     // Variable para referenciar a la base de datos
     private readonly AsistenciaDBContext _context;
+    private readonly Usuario _usuarioAutenticado;
     private bool pulsacionLarga;
     private DateTime pressStartTime;
 
-    public AsistenciaPage(AsistenciaDBContext context)
+    public AsistenciaPage(AsistenciaDBContext context, Usuario usuarioAutenticado)
     {
         InitializeComponent();
         _context = context;
         btnMarcarAsistencia.IsEnabled = false;
+        _usuarioAutenticado = usuarioAutenticado;
     }
 
 
@@ -73,7 +75,7 @@ public partial class AsistenciaPage : ContentPage
 
     private async void btnMarcarAsistencia_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new MenuPage(_context));
+        await Navigation.PushAsync(new MenuPage(_context, _usuarioAutenticado));
     }
 
     private async void btnLectorHuella_Clicked(object sender, EventArgs e)
@@ -103,7 +105,7 @@ public partial class AsistenciaPage : ContentPage
                 if (isAdded)
                 {
                     await DisplayAlert("Éxito", "Asistencia marcada correctamente.", "OK");
-                    await Navigation.PushAsync(new MenuPage(_context));
+                    await Navigation.PushAsync(new MenuPage(_context, _usuarioAutenticado));
                 }
                 else
                 {

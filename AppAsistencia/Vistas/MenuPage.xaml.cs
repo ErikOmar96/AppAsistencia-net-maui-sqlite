@@ -1,6 +1,7 @@
 //using Plugin.Fingerprint.Abstractions;
 
 using AppAsistencia.DataAccess;
+using AppAsistencia.Modelos;
 using AppAsistencia.VistaModelos;
 
 namespace AppAsistencia.Vistas;
@@ -9,12 +10,14 @@ public partial class MenuPage : ContentPage
 {
     private readonly AsistenciaDBContext _context;
     private readonly AsistenciaVM _vistaModelo;
+    private readonly Usuario _usuarioAutenticado;
 
-    public MenuPage(AsistenciaDBContext context)
+    public MenuPage(AsistenciaDBContext context, Usuario usuarioAutenticado)
 	{
 		InitializeComponent();
         _context = context;
-        _vistaModelo = new AsistenciaVM(context);
+        _vistaModelo = new AsistenciaVM(context, usuarioAutenticado);
+        _usuarioAutenticado = usuarioAutenticado;
         // Llamar al método para actualizar el estado del botón de marcar asistencia
         //ActualizarEstadoBotonAsistencia();
 
@@ -22,27 +25,27 @@ public partial class MenuPage : ContentPage
 
     private async void btnMarcarAsistencia_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new AsistenciaPage(_context)); // Aquí es el error
+        await Navigation.PushAsync(new AsistenciaPage(_context, _usuarioAutenticado)); // Aquí es el error
     }
 
     private async void btnJustificarTardanza_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new TardanzaPage(_context));
+        await Navigation.PushAsync(new TardanzaPage(_context, _usuarioAutenticado));
     }
 
     private async void btnJustificarInasistencia_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new InasistenciaPage(_context));
+        await Navigation.PushAsync(new InasistenciaPage(_context, _usuarioAutenticado));
     }
 
     private async void btnVerAsistencias_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VerAsistenciasPage(_vistaModelo));
+        await Navigation.PushAsync(new VerAsistenciasPage(_vistaModelo, _usuarioAutenticado));
     }
 
     private async void btnActualizarDatos_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ActualizarDatosPage());
+        //await Navigation.PushAsync(new ActualizarDatosPage());
     }
 
     private async  void btnSalir_Clicked(object sender, EventArgs e)
