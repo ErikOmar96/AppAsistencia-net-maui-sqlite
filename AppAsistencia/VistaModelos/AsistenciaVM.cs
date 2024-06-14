@@ -144,6 +144,12 @@ namespace AppAsistencia.VistaModelos
             }, "Eliminando Asistencia...");
         }
 
+        public async Task<ObservableCollection<Asistencia>> GetAsistenciasPorFechasAsync(DateTime fechaInicio, DateTime fechaFin)
+        {
+            var asistencias = await _context.GetAsistenciasPorFechasAsync(fechaInicio, fechaFin);
+            return new ObservableCollection<Asistencia>(asistencias);
+        }
+
         private async Task ExecuteAsync(Func<Task> operation, string? busyText = null)
         {
             IsBusy = true;

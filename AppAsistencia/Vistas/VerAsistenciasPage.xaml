@@ -168,7 +168,18 @@
                         </VerticalStackLayout>
                     </Grid>
                 </Grid>
-
+                <DatePicker x:Name="fechainicio" />
+                <DatePicker x:Name="fechafin" />
+                <Button Text="DESCARGAR REPORTE PDF"
+                        CornerRadius="10"
+                        BackgroundColor="Red"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        HeightRequest="100"
+                        FontSize="Large"
+                        x:Name="btnReportePDF"
+                        Clicked="btnReportePDF_Clicked">
+                </Button>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

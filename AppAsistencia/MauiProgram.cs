@@ -5,6 +5,8 @@ using AppAsistencia.Vistas;
 using AppAsistencia.VistaModelos;
 // Using de Plugin instalado
 using Plugin.Maui.Biometric;
+//
+using CommunityToolkit.Maui;
 namespace AppAsistencia
 {
     public static class MauiProgram
@@ -13,6 +15,7 @@ namespace AppAsistencia
         {
             var builder = MauiApp.CreateBuilder();
             builder.UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

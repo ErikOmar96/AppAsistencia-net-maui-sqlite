@@ -107,6 +107,14 @@ namespace AppAsistencia.DataAccess
             return usuarios.FirstOrDefault();
         }
 
+        // Obtener asistencias por rango de fechas
+        public async Task<List<Asistencia>> GetAsistenciasPorFechasAsync(DateTime fechaInicio, DateTime fechaFin)
+        {
+            return await Database.Table<Asistencia>()
+            .Where(a => a.FechaAsistencia >= fechaInicio && a.FechaAsistencia <= fechaFin)
+            .ToListAsync();
+        }
+
         public async ValueTask DisposeAsync() => await _connection?.CloseAsync();
 
     }
