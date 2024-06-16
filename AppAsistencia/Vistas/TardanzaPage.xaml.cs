@@ -48,7 +48,7 @@ public partial class TardanzaPage : ContentPage
                     FechaAsistencia = DateTime.Now,
                     EstadoAsistencia = "Atrasado",
                     TextoAsistencia = txtTardanza.Text,
-                    IdUsuario = 1 // Asigna el IdUsuario correspondiente, asegúrate de que sea correcto
+                    IdUsuario = _usuarioAutenticado.IdUsuario // Asigna el IdUsuario correspondiente, asegúrate de que sea correcto
                 };
 
                 try
@@ -109,7 +109,7 @@ public partial class TardanzaPage : ContentPage
                     FechaAsistencia = DateTime.Now,
                     EstadoAsistencia = "Atrasado",
                     TextoAsistencia = txtTardanza.Text,
-                    IdUsuario = 1 // Asigna el IdUsuario correspondiente, asegúrate de que sea correcto
+                    IdUsuario = _usuarioAutenticado.IdUsuario // Asigna el IdUsuario correspondiente, asegúrate de que sea correcto
                 };
                 try
                 {

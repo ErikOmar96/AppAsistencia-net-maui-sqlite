@@ -61,7 +61,8 @@ public partial class VerAsistenciasPage : ContentPage
             {
                 table.AddCell(asistencia.IdAsistencia.ToString());
                 //table.AddCell(asistencia.Usuario?.NombreUsuario ?? "N/A");
-                table.AddCell(asistencia.Usuario?.NombreUsuario);
+                //table.AddCell(asistencia.Usuario?.NombreUsuario);
+                table.AddCell(asistencia.IdUsuario.ToString());
                 table.AddCell(asistencia.FechaAsistencia.ToString("yyyy-MM-dd HH:mm"));
                 table.AddCell(asistencia.EstadoAsistencia);
             }

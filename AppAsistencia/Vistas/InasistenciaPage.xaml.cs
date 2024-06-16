@@ -42,7 +42,7 @@ public partial class InasistenciaPage : ContentPage
                     FechaAsistencia = DateTime.Now,
                     EstadoAsistencia = "Ausente",
                     TextoAsistencia = txtInasistencia.Text,
-                    IdUsuario = 1 // Asigna el IdUsuario correspondiente, asegúrate de que sea correcto
+                    IdUsuario = _usuarioAutenticado.IdUsuario // Asigna el IdUsuario correspondiente, asegúrate de que sea correcto
                 };
 
                 try
@@ -110,7 +110,7 @@ public partial class InasistenciaPage : ContentPage
                     FechaAsistencia = DateTime.Now,
                     EstadoAsistencia = "Atrasado",
                     TextoAsistencia = txtInasistencia.Text,
-                    IdUsuario = 1 // Asigna el IdUsuario correspondiente, asegúrate de que sea correcto
+                    IdUsuario = _usuarioAutenticado.IdUsuario // Asigna el IdUsuario correspondiente, asegúrate de que sea correcto
                 };
                 try
                 {

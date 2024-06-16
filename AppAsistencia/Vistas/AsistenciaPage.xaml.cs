@@ -38,7 +38,7 @@ public partial class AsistenciaPage : ContentPage
                 FechaAsistencia = DateTime.Now,
                 EstadoAsistencia = "Presente",
                 TextoAsistencia = "Asistencia marcada con pulsación larga",
-                IdUsuario = 1 // Asigna el IdUsuario correspondiente, asegúrate de que sea correcto
+                IdUsuario = _usuarioAutenticado.IdUsuario // Asigna el IdUsuario correspondiente del usuario autenticado
             };
 
             try
@@ -96,7 +96,7 @@ public partial class AsistenciaPage : ContentPage
                 FechaAsistencia = DateTime.Now,
                 EstadoAsistencia = "Presente",
                 TextoAsistencia = "Asistencia marcada con huella digital",
-                IdUsuario = 1 // Asigna el IdUsuario correspondiente, asegúrate de que sea correcto
+                IdUsuario = _usuarioAutenticado.IdUsuario // Asigna el IdUsuario correspondiente del usuario autenticado
             };
             try
             {
